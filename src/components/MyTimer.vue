@@ -25,8 +25,7 @@ function start(initialTime) {
             play();
         }
         if (time.value === 0) {
-            clearInterval(intervalId);
-            stopSound();
+            stop();
             emit('done');
         }
     }, 1000);
