@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import MyTimer from './MyTimer.vue';
 
 
@@ -16,7 +16,7 @@ const emit = defineEmits(['done']);
 const exercises = ref(props.exercises);
 
 const currentExercise = ref(0);
-const currentExerciseTime = ref(exercises.value[currentExercise.value].durationInSec);
+const currentExerciseTime = computed(() => exercises.value[currentExercise.value].durationInSec);
 
 const timer = ref()
 
