@@ -24,13 +24,20 @@ function start(initialTime) {
     }, 1000);
 }
 
+function stop() {
+    if (intervalId) {
+        clearInterval(intervalId);
+    }
+}
+
 defineExpose({
     start,
+    stop,
 });
 
 onMounted(() => {
     if (props.initialTime) {
-        start
+        start()
     }
 });
 
