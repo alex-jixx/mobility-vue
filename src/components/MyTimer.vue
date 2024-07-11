@@ -1,5 +1,9 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import { useSound } from '@vueuse/sound'
+import countdown from '@/assets/countdown.wav';
+
+const { play, stop: stopSound } = useSound(countdown);
 
 const props = defineProps({
     initialTime: {
@@ -17,14 +21,19 @@ function start(initialTime) {
     time.value = initialTime ?? props.initialTime;
     intervalId = setInterval(() => {
         time.value--;
+        if (time.value === 3) {
+            play();
+        }
         if (time.value === 0) {
             clearInterval(intervalId);
+            stopSound();
             emit('done');
         }
     }, 1000);
 }
 
 function stop() {
+    stopSound();
     if (intervalId) {
         clearInterval(intervalId);
     }
