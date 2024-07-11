@@ -29,11 +29,6 @@ const router = createRouter({
       name: 'stretch',
       component: () => import('../views/StretchRoutine.vue'),
     },
-    {
-      path: '/stretch/started',
-      name: 'stretchStarted',
-      component: () => import('../views/StretchRoutine.vue'),
-    }
   ]
 })
 
