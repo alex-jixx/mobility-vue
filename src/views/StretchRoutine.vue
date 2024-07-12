@@ -133,11 +133,6 @@ function decrement(exercise) {
     transition: transform 0.2s;
 }
 
-.exercise-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 .exercise-details {
     display: flex;
     justify-content: space-between;
