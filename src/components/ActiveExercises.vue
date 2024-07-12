@@ -1,72 +1,87 @@
 <script setup>
-
-import { ref, computed } from 'vue';
-import MyTimer from './MyTimer.vue';
-
+import { ref, computed } from 'vue'
+import MyTimer from './MyTimer.vue'
 
 const props = defineProps({
     exercises: {
         type: Array,
         required: true,
     },
-});
+})
 
-const emit = defineEmits(['done']);
+const emit = defineEmits(['done'])
 
-const exercises = ref(props.exercises);
+const exercises = ref(props.exercises)
 
-const currentExercise = ref(0);
-const currentExerciseTime = computed(() => exercises.value[currentExercise.value].durationInSec);
+const currentExercise = ref(0)
+const currentExerciseTime = computed(() => exercises.value[currentExercise.value].durationInSec)
 
 const timer = ref()
 
 async function handleDone() {
     if (currentExercise.value < exercises.value.length - 1) {
-        currentExercise.value++;
-        timer.value.start(currentExerciseTime.value);
+        currentExercise.value++
+        timer.value.start(currentExerciseTime.value)
     } else {
-        emit('done');
+        emit('done')
     }
 }
 
 function handleStop() {
-    timer.value.stop();
-    emit('done');
+    timer.value.stop()
+    emit('done')
 }
 
 function handleNext() {
-    currentExercise.value++;
-    timer.value.stop();
-    timer.value.start(currentExerciseTime.value);
+    currentExercise.value++
+    timer.value.stop()
+    timer.value.start(currentExerciseTime.value)
 }
 
 function handlePrevious() {
-    currentExercise.value--;
-    timer.value.stop();
-    timer.value.start(currentExerciseTime.value);
+    currentExercise.value--
+    timer.value.stop()
+    timer.value.start(currentExerciseTime.value)
 }
-
 </script>
 
 <template>
     <div class="workout-container">
         <div class="timer-container">
-            <MyTimer ref="timer" @done='handleDone' :initialTime="currentExerciseTime" v-slot="{ time }">
+            <MyTimer
+                ref="timer"
+                @done="handleDone"
+                :initialTime="currentExerciseTime"
+                v-slot="{ time }"
+            >
                 <h1 class="exercise-title">
                     {{ exercises[currentExercise].name }}
                 </h1>
-                <p class="timer-display">
-                    Time: {{ time }}
-                </p>
+                <p class="timer-display">Time: {{ time }}</p>
             </MyTimer>
-            <img v-if=exercises[currentExercise].image :src="exercises[currentExercise].image" alt="Exercise image"
-                class="exercise-image">
+            <img
+                v-if="exercises[currentExercise].image"
+                :src="exercises[currentExercise].image"
+                alt="Exercise image"
+                class="exercise-image"
+            />
         </div>
         <div class="button-container">
-            <button class="nav-button" @click.prevent="handlePrevious"
-                :disabled="currentExercise === 0">Previous</button>
-            <button class="nav-button" @click.prevent="handleNext"
-                :disabled="currentExercise === exercises.length - 1">Next</button>
+            <button
+                class="nav-button"
+                @click.prevent="handlePrevious"
+                :disabled="currentExercise === 0"
+            >
+                Previous
+            </button>
+
+            <button
+                class="nav-button"
+                @click.prevent="handleNext"
+                :disabled="currentExercise === exercises.length - 1"
+            >
+                Next
+            </button>
         </div>
         <button class="stop-button" @click.prevent="handleStop">Stop</button>
     </div>
@@ -97,7 +112,7 @@ function handlePrevious() {
 
 .exercise-title {
     font-size: 2em;
-    color: #007BFF;
+    color: #007bff;
     margin-bottom: 10px;
 }
 
@@ -122,7 +137,7 @@ function handlePrevious() {
 
 .nav-button {
     padding: 10px 20px;
-    background-color: #007BFF;
+    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -145,7 +160,7 @@ function handlePrevious() {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #FF4136;
+    background-color: #ff4136;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -156,6 +171,6 @@ function handlePrevious() {
 }
 
 .stop-button:hover {
-    background-color: #C12B2B;
+    background-color: #c12b2b;
 }
 </style>

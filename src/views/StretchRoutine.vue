@@ -1,14 +1,14 @@
 <script setup>
-import { ref } from 'vue';
-import ActiveExercises from '../components/ActiveExercises.vue';
-import angle_stretch from '../assets/angle_stretch.jpg';
-import standing_bendover from '../assets/standing_bendover.jpg';
-import nature_pose from '../assets/nature_pose.jpg';
-import tordenkile from '../assets/tordenkile.jpg';
-import shake_body from '../assets/shake_body.jpg';
-import relaxing_breathing from '../assets/relaxing_breathing.jpg';
+import { ref } from 'vue'
+import ActiveExercises from '../components/ActiveExercises.vue'
+import angle_stretch from '../assets/angle_stretch.jpg'
+import standing_bendover from '../assets/standing_bendover.jpg'
+import nature_pose from '../assets/nature_pose.jpg'
+import tordenkile from '../assets/tordenkile.jpg'
+import shake_body from '../assets/shake_body.jpg'
+import relaxing_breathing from '../assets/relaxing_breathing.jpg'
 
-const exercises = [
+const exercises = ref([
     {
         name: 'Ryst kroppen',
         durationInSec: 120,
@@ -39,14 +39,23 @@ const exercises = [
         durationInSec: 60,
         image: angle_stretch,
     },
-];
+])
 
-const started = ref(false);
+const started = ref(false)
 
 function handleStart() {
-    started.value = true;
+    started.value = true
 }
 
+function increment(exercise) {
+    exercise.durationInSec += 15
+}
+
+function decrement(exercise) {
+    if (exercise.durationInSec > 15) {
+        exercise.durationInSec -= 15
+    }
+}
 </script>
 
 <template>
@@ -60,6 +69,20 @@ function handleStart() {
                         {{ exercise.name }}
                     </h2>
                     <span class="exercise-duration">
+                        <button
+                            class="action-button"
+                            type="button"
+                            @click.prevent="() => decrement(exercise)"
+                        >
+                            -
+                        </button>
+                        <button
+                            class="action-button"
+                            type="button"
+                            @click.prevent="() => increment(exercise)"
+                        >
+                            +
+                        </button>
                         {{ exercise.durationInSec }} seconds
                     </span>
                 </div>
@@ -70,6 +93,15 @@ function handleStart() {
 </template>
 
 <style scoped>
+.action-button {
+    font-size: 24px;
+    padding: 7px;
+    border: none;
+    margin: 3px;
+    background-color: white;
+    cursor: pointer;
+}
+
 .container {
     max-width: 600px;
     margin: 0 auto;
@@ -114,7 +146,7 @@ function handleStart() {
 
 .exercise-name {
     font-size: 1.2em;
-    color: #007BFF;
+    color: #007bff;
     margin: 0;
 }
 
@@ -127,7 +159,7 @@ function handleStart() {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #007BFF;
+    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 8px;
