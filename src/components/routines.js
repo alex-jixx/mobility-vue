@@ -7,8 +7,11 @@ import shake_body from '../assets/shake_body.jpg'
 import relaxing_breathing from '../assets/relaxing_breathing.jpg'
 
 // Karin's exercises
-import exercise_1 from '../assets/exercise_1.jpeg'
-import exercise_2 from '../assets/exercise_2.jpeg'
+import baekkenloeft from '../assets/karins/baekkenloeft.jpeg'
+import crunch from '../assets/karins/crunch.jpeg'
+import mavespaend from '../assets/karins/mavespaend.jpeg'
+import musling from '../assets/karins/musling.jpeg'
+import staaenede_taeppetoef from '../assets/karins/staaende_taeppetoef.jpeg'
 
 export default {
     dailyYinyasa: [
@@ -45,14 +48,34 @@ export default {
     ],
     karinsHipExercises: [
         {
-            name: 'Øvelse 1',
-            durationInSec: 120,
-            image: exercise_1,
+            name: 'Mavespænd',
+            durationInSec: 90,
+            image: mavespaend,
         },
         {
-            name: 'Øvelse 2',
-            durationInSec: 120,
-            image: exercise_2,
+            name: 'Musling - Højre',
+            durationInSec: 90,
+            image: musling,
+        },
+        {
+            name: 'Musling - Venstre',
+            durationInSec: 90,
+            image: musling,
+        },
+        {
+            name: 'Bækkenløft',
+            durationInSec: 90,
+            image: baekkenloeft,
+        },
+        {
+            name: 'Crunch',
+            durationInSec: 90,
+            image: crunch,
+        },
+        {
+            name: 'Stående tæppetøf',
+            durationInSec: 90,
+            image: staaenede_taeppetoef,
         },
     ],
 }
