@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import ActiveExercises from '../components/ActiveExercises.vue'
+import { useWakeLock } from '@vueuse/core'
+
+const { isSupported, isActive, request, release } = useWakeLock()
 
 const props = defineProps({
     exercises: {
@@ -15,6 +18,12 @@ const started = ref(false)
 
 function handleStart() {
     started.value = true
+    request()
+}
+
+function handleDone() {
+    started.value = false
+    release()
 }
 
 function increment(exercise) {
@@ -29,7 +38,7 @@ function decrement(exercise) {
 </script>
 
 <template>
-    <ActiveExercises v-if="started" :exercises="exercises" @done="started = false" />
+    <ActiveExercises v-if="started" :exercises="exercises" @done="handleDone" />
     <div class="container" v-else>
         <h1 class="title">Exercises</h1>
         <ul class="exercise-list">

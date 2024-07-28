@@ -1,44 +1,47 @@
 <script setup>
-import { ref, nextTick } from 'vue';
-import MyTimer from '../components/MyTimer.vue';
+import { ref, nextTick } from 'vue'
+import MyTimer from '../components/MyTimer.vue'
+import { useWakeLock } from '@vueuse/core'
 
-const time = ref(30);
+const { isSupported, isActive, request, release } = useWakeLock()
+
+const time = ref(30)
 
 function decrement() {
     if (time.value > 5) {
-        time.value -= 5;
+        time.value -= 5
     }
 }
 
 function increment() {
-    time.value += 5;
+    time.value += 5
 }
 
 function reset() {
-    time.value = 30;
+    time.value = 30
 }
 
-const timer = ref();
-const stopwatchRunning = ref(false);
+const timer = ref()
+const stopwatchRunning = ref(false)
 
 function start() {
-    stopwatchRunning.value = true;
-    nextTick(() => timer.value.start(time.value));
+    stopwatchRunning.value = true
+    request()
+    nextTick(() => timer.value.start(time.value))
 }
 
 function handleDone() {
-    stopwatchRunning.value = false;
+    stopwatchRunning.value = false
+    release()
 }
-
-
 </script>
 
 <template>
     <div class="container">
+        <p>Wake lock: {{ isSupported }}</p>
+        <p>Is active: {{ isActive }}</p>
         <MyTimer v-if="stopwatchRunning" @done="handleDone" ref="timer" v-slot="{ time }">
-            <h1>
-                Stopwatch
-            </h1>
+            <h1>Stopwatch</h1>
             <h2>
                 {{ time }}
             </h2>
@@ -56,7 +59,6 @@ function handleDone() {
         </template>
     </div>
 </template>
-
 
 <style scoped>
 .center {
