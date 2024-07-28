@@ -10,8 +10,8 @@ import relaxing_breathing from '../assets/relaxing_breathing.jpg'
 import baekkenloeft from '../assets/karins/baekkenloeft.jpeg'
 import crunch from '../assets/karins/crunch.jpeg'
 import mavespaend from '../assets/karins/mavespaend.jpeg'
-import musling from '../assets/karins/musling.jpeg'
-import staaenede_taeppetoef from '../assets/karins/staaende_taeppetoef.jpeg'
+import aquaman from '../assets/karins/aquaman.jpeg'
+import bird_dog from '../assets/karins/aquaman.jpeg'
 
 export default {
     dailyYinyasa: [
@@ -53,14 +53,9 @@ export default {
             image: mavespaend,
         },
         {
-            name: 'Musling - Højre',
+            name: 'Aquaman',
             durationInSec: 90,
-            image: musling,
-        },
-        {
-            name: 'Musling - Venstre',
-            durationInSec: 90,
-            image: musling,
+            image: aquaman,
         },
         {
             name: 'Bækkenløft',
@@ -73,9 +68,9 @@ export default {
             image: crunch,
         },
         {
-            name: 'Stående tæppetøf',
+            name: 'Bird dog',
             durationInSec: 90,
-            image: staaenede_taeppetoef,
+            image: bird_dog,
         },
     ],
 }
