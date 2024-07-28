@@ -11,7 +11,7 @@ import baekkenloeft from '../assets/karins/baekkenloeft.jpeg'
 import crunch from '../assets/karins/crunch.jpeg'
 import mavespaend from '../assets/karins/mavespaend.jpeg'
 import aquaman from '../assets/karins/aquaman.jpeg'
-import bird_dog from '../assets/karins/aquaman.jpeg'
+import bird_dog from '../assets/karins/bird_dog.jpeg'
 
 export default {
     dailyYinyasa: [
