@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import ActiveExercises from '../components/ActiveExercises.vue'
 import { useWakeLock } from '@vueuse/core'
 
@@ -12,7 +12,14 @@ const props = defineProps({
     },
 })
 
-const exercises = ref(props.exercises)
+const excludedExercises = ref(props.exercises.map(() => null))
+const selectedExercises = computed(() => {
+    const selectedExercisesIndices = excludedExercises.value
+        .map((selected, idx) => (selected ? null : idx))
+        .filter((value) => value !== null)
+
+    return selectedExercisesIndices.map((idx) => props.exercises[idx])
+})
 
 const started = ref(false)
 
@@ -38,31 +45,43 @@ function decrement(exercise) {
 </script>
 
 <template>
-    <ActiveExercises v-if="started" :exercises="exercises" @done="handleDone" />
+    <ActiveExercises v-if="started" :exercises="selectedExercises" @done="handleDone" />
     <div class="container" v-else>
         <h1 class="title">Exercises</h1>
         <ul class="exercise-list">
-            <li v-for="exercise in exercises" :key="exercise.name" class="exercise-item">
+            <li v-for="(exercise, idx) in exercises" :key="exercise.name" class="exercise-item">
                 <div class="exercise-details">
                     <h2 class="exercise-name">
                         {{ exercise.name }}
                     </h2>
                     <span class="exercise-duration">
-                        <button
-                            class="action-button"
-                            type="button"
-                            @click.prevent="() => decrement(exercise)"
-                        >
-                            -
-                        </button>
-                        <button
-                            class="action-button"
-                            type="button"
-                            @click.prevent="() => increment(exercise)"
-                        >
-                            +
-                        </button>
-                        {{ exercise.durationInSec }} seconds
+                        <template v-if="!excludedExercises[idx]">
+                            <button
+                                class="action-button"
+                                type="button"
+                                @click.prevent="() => decrement(exercise)"
+                            >
+                                -
+                            </button>
+                            <button
+                                class="action-button"
+                                type="button"
+                                @click.prevent="() => increment(exercise)"
+                            >
+                                +
+                            </button>
+                            {{ exercise.durationInSec }} seconds
+                        </template>
+                        <div class="exercise-is-excluded" v-else>Exercises is excluded</div>
+                        <div class="exclude-field">
+                            <input
+                                :value="idx"
+                                :name="'exclude' + exercise.name"
+                                type="checkbox"
+                                v-model="excludedExercises[idx]"
+                            />
+                            <label :for="'exclude' + exercise.name">Exclude</label>
+                        </div>
                     </span>
                 </div>
             </li>
@@ -72,6 +91,16 @@ function decrement(exercise) {
 </template>
 
 <style scoped>
+.exercise-is-excluded {
+    padding: 7px;
+    margin: 3px;
+}
+
+.exclude-field {
+    display: flex;
+    justify-content: space-around;
+}
+
 .action-button {
     font-size: 24px;
     padding: 7px;
